@@ -1,0 +1,26 @@
+[
+    {
+        "userid": "001",
+        "email": "erkkiesim@testi.fi",
+        "firstname": "Erkki",
+        "lastname": "Esimerkki",
+        "phone": "040 987 6543",
+        "birthday": "10-01-1990"
+    },
+    {
+        "userid": "002",
+        "email": "matti@humppa.fi",
+        "firstname": "Matti",
+        "lastname": "Ruohonen",
+        "phone": "040 123 456",
+        "birthday": "08-08-1949"
+    },
+    {
+        "userid": "003",
+        "email": "teppo@humppa.fi",
+        "firstname": "Teppo",
+        "lastname": "Ruohonen",
+        "phone": "050 333 4466",
+        "birthday": "01-03-1948"
+    }
+]

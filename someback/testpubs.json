@@ -1,0 +1,17 @@
+[
+    {
+        "posterid": 1,
+        "postdate": "2023-05-12T12:30:55Z",
+        "content": "This is test content"
+    },
+    {
+        "posterid": 2,
+        "postdate": "2023-05-12T12:30:55Z",
+        "content": "This is more test content"
+    },
+    {
+        "posterid": 3,
+        "postdate": "2023-05-12T12:30:55Z",
+        "content": "This is yet another test content"
+    }
+]
