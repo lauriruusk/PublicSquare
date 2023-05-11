@@ -1,17 +1,14 @@
-
+import { useState } from 'react';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 const LoginForm = (props) => {
-    const handleLogin = (event) => {
-        event.preventDefault();
-        props.handler(event.target.uname.value, event.target.pword.value)
-    }
+    const [login, setLogin] = useState(true)
     return (
-        <div>
-            <form onSubmit={handleLogin}>
-                <input id="uname" type="text" placeholder="username" />
-                <input id="pword" type="password" placeholder="password" />
-                <input type="submit" value="Login"/> 
-            </form>
+        <div className="reglog">
+            {login ? <SignIn handler={props.handler} /> : <SignUp handler={props.reghandler} />}
+            <label for="reg">Register</label>
+            <input type="checkbox" id="reg" onClick={() => setLogin(current => !current)} />
         </div>
     )
 }
