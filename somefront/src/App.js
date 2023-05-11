@@ -13,17 +13,17 @@ const App = () => {
   //   axios.get('http://localhost:3001/').then(response => setPubs(response.data));
   // }, []);
 
-  const handleLogin = async (username, password) => {
+  const handleLogin = async (email, password) => {
     // event.preventDefault();
     try {
       const kaytt = {
-        username: username,
+        username: email,
         token: '',
       };
-      if(username === 'adname') {
-        kaytt.token = await logAdmin({username: username, password: password});
+      if(email === 'adname') {
+        kaytt.token = await logAdmin({username: email, password: password});
       } else {
-        kaytt.token = await logUser({username: username, password: password});
+        kaytt.token = await logUser({email: email, password: password});
       }
       
       window.localStorage.setItem('loggeduser', JSON.stringify(kaytt));
@@ -35,13 +35,13 @@ const App = () => {
     
   }
 
-  const handleRegister = async (userid, password) => {
+  const handleRegister = async (email, password) => {
     try {
       const kytt = {
-        userid: userid,
+        email: email,
         token: ''
       }
-      kytt.token = await regUser({userid: userid, password: password});
+      kytt.token = await regUser({email: email, password: password});
       window.localStorage.setItem('loggeduser', JSON.stringify(kytt));
 
     } catch (e) {

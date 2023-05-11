@@ -2,6 +2,7 @@ import express from 'express';
 import argon from 'argon2';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
+import User from '../models/user';
 import 'dotenv/config';
 const router = express.Router();
 
@@ -17,35 +18,37 @@ router.use((req, res, next) => {
 })
 
 router.post('/register', (req, res) => {
-    if(!req.body.userid || !req.body.password) {
+    if(!req.body.email || !req.body.password) {
         res.status(400).send('Some info missing!');
     } else {
-        let userId = req.body.userid;
+        let email = req.body.email;
         let pWord = req.body.password;
         
         argon.hash(pWord).then(result => {
+            // TODO create users into MongoDB instead
             let users = JSON.parse(fs.readFileSync('testusers.json'));
             // console.log(users);
-            let user = { userid: userId, password: result};
+            let user = new User({ email: email, password: result});
             console.log(user);
             users.push(user);
             fs.writeFileSync('testusers.json', JSON.stringify(users, 4));
             // console.log(users);
         });
-        const token = jwt.sign({user: userId}, secret, options);
+        const token = jwt.sign({user: email}, secret, options);
         res.status(200).send(`Bearer ${token}`);
     }
 
 })
 
 router.post('/login', (req, res) => {
-    if(!req.body.username || !req.body.password) {
+    if(!req.body.email || !req.body.password) {
         res.status(400).send("Some info missing!");
     } else {
         console.log('Received!');
         console.log(req.body);
         const users = JSON.parse(fs.readFileSync('testusers.json'));
-        const user = users[users.indexOf(users.find(u => u.userid === req.body.username))];
+        //TODO get users from MongoDB instead
+        const user = users[users.indexOf(users.find(u => u.email === req.body.email))];
         let pw = req.body.password;
         let hash = user.password;
         argon.verify(hash, pw).then(result => {

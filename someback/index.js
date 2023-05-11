@@ -29,21 +29,6 @@ serv.get('/', (req, res) => {
     
 })
 
-serv.post('/login', (req, res) => {
-    if(!req.body.username || req.body.password){
-        res.status(400).send('Some info missing');
-    } else {
-        const users = JSON.parse(fs.readFileSync('./testpubs.json'));
-        const user = users[users.indexOf(users.find(u => u.username === req.body.username))];
-        let pw = req.body.password;
-        let hash = user.password;
-        argon.verify(hash, pw).then(result => {
-            const token = jwt.sign({username: user.username}, secret, options)
-            result ? res.status(200).send(`Bearer ${token}`) : res.status(401).send();
-        })
-    }
-})
-
 serv.post('/admin', (req, res) => {
     console.log('received!');
     if(req.body.username !== process.env.ADMIN_USERNAME || req.body.password !== process.env.ADMIN_PASSWORD) {
