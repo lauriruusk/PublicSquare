@@ -1,6 +1,6 @@
 import mongo from 'mongodb';
 import mongoose from 'mongoose';
-import User from '../models/user';
+import User from '../models/user.js';
 import 'dotenv/config';
 
 const uri = process.env.MONGO_URI;

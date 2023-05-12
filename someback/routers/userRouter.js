@@ -2,7 +2,8 @@ import express from 'express';
 import argon from 'argon2';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
-import User from '../models/user';
+import User from '../models/user.js';
+import addUserToDatabase from './databaseRouter.js';
 import 'dotenv/config';
 const router = express.Router();
 
@@ -28,9 +29,11 @@ router.post('/register', (req, res) => {
             // TODO create users into MongoDB instead
             let users = JSON.parse(fs.readFileSync('testusers.json'));
             // console.log(users);
-            let user = new User({ email: email, password: result});
+            const user = new User({ email: email, password: result});
             console.log(user);
             users.push(user);
+            // addUserToDatabase(user);
+            user.save().then(console.log('Success!'));
             fs.writeFileSync('testusers.json', JSON.stringify(users, 4));
             // console.log(users);
         });
