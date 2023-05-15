@@ -1,5 +1,6 @@
-// db.ts
+
 import pg from 'pg'
+import 'dotenv/config'
 
 const { PG_HOST, PG_PORT, PG_USERNAME, PG_PASSWORD, PG_DATABASE, NODE_ENV } = process.env
 
@@ -26,13 +27,35 @@ const executeQuery = async (query, parameters) => {
     }
 }
 
-export const createProductsTable = async () => {
+const createUsersTable = async () => {
     const query = `
-        CREATE TABLE IF NOT EXISTS "products" (
+        CREATE TABLE IF NOT EXISTS "users" (
             "id" SERIAL PRIMARY KEY,
-            "name" VARCHAR(100) NOT NULL,
-            "price" REAL NOT NULL
+            "email" VARCHAR(100) NOT NULL,
+            "password" VARCHAR(100) NOT NULL,
+            "firstname" VARCHAR(100),
+            "lastname" VARCHAR(100),
+            "birthday" VARCHAR(100),
+            "phone" REAL
         )`
     await executeQuery(query)
-    console.log('Products table initialized')
+    console.log('Users table initialized');
+    const adminQuery = `
+        INSERT INTO "users" ("email", "password") VALUES ('${process.env.ADMIN_USERNAME}', '${process.env.ADMIN_PASSWORD}')`
+    await executeQuery(adminQuery);
+    console.log('admin added');
 }
+
+const addUserToDatabase = async (params) => {
+    const query = `
+        INSERT INTO users (email, password) VALUES ('${params.email}', '${params.password}') `
+    
+        await executeQuery(query);
+        console.log('User added!');
+}
+
+const loginData = async (params) => {
+    const query = `SELECT * FROM users WHERE email=${params.email} AND password=${params.password}`
+}
+
+export {createUsersTable, addUserToDatabase, loginData};

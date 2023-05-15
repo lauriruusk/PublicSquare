@@ -3,7 +3,8 @@ import argon from 'argon2';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import User from '../models/user.js';
-import addUserToDatabase from './databaseRouter.js';
+// import addUserToDatabase from './databaseRouter.js';
+import { addUserToDatabase, loginData } from './database.js';
 import 'dotenv/config';
 const router = express.Router();
 
@@ -32,9 +33,9 @@ router.post('/register', (req, res) => {
             const user = new User({ email: email, password: result});
             console.log(user);
             users.push(user);
-            // addUserToDatabase(user);
-            user.save().then(console.log('Success!'));
-            fs.writeFileSync('testusers.json', JSON.stringify(users, 4));
+            addUserToDatabase(user);
+            // user.save().then(console.log('Success!'));
+            // fs.writeFileSync('testusers.json', JSON.stringify(users, 4));
             // console.log(users);
         });
         const token = jwt.sign({user: email}, secret, options);
@@ -51,7 +52,7 @@ router.post('/login', (req, res) => {
         console.log(req.body);
         const users = JSON.parse(fs.readFileSync('testusers.json'));
         //TODO get users from MongoDB instead
-        const user = users[users.indexOf(users.find(u => u.email === req.body.email))];
+        const user = loginData(req.body)
         let pw = req.body.password;
         let hash = user.password;
         argon.verify(hash, pw).then(result => {

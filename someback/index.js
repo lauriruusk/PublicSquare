@@ -2,6 +2,7 @@ import express from 'express';
 import fs from 'fs';
 import uRouter from './routers/userRouter.js';
 // import argon from 'argon2';
+import  {createUsersTable, addUserToDatabase}  from './routers/database.js'
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
@@ -11,23 +12,25 @@ const options = {expiresIn: '15m'};
 serv.use(express.json());
 
 serv.use(uRouter);
-serv.use((req, res, next) => {
-    res.header({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'});
-    next();
-})
+// createUsersTable();
 
-serv.get('/', (req, res) => {
-    try{
-        const all = JSON.parse(fs.readFileSync('./testpubs.json'));
-    res.send(all);
-    } catch (e) {
-        res.send(e.message);
-    }
+// serv.use((req, res, next) => {
+//     res.header({
+//         'Access-Control-Allow-Origin': '*',
+//         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+//         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'});
+//     next();
+// })
+
+// serv.get('/', (req, res) => {
+//     try{
+//         const all = JSON.parse(fs.readFileSync('./testpubs.json'));
+//     res.send(all);
+//     } catch (e) {
+//         res.send(e.message);
+//     }
     
-})
+// })
 
 serv.post('/admin', (req, res) => {
     console.log('received!');
