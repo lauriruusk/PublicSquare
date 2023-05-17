@@ -7,7 +7,7 @@ const logUser = async (credentials) => {
 }
 
 const logAdmin = async (credentials) => {
-    console.log('received!');
+    console.log('admin received!');
     const request = await axios.post((url+'/admin'), credentials);
     return request.data.token;
 }

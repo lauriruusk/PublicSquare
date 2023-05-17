@@ -48,14 +48,26 @@ const createUsersTable = async () => {
 
 const addUserToDatabase = async (params) => {
     const query = `
-        INSERT INTO users (email, password) VALUES ('${params.email}', '${params.password}') `
+        INSERT INTO users ("email", "password") VALUES ('${params.email}', '${params.password}') `
     
         await executeQuery(query);
         console.log('User added!');
 }
 
 const loginData = async (params) => {
-    const query = `SELECT * FROM users WHERE email=${params.email} AND password=${params.password}`
+    console.log('login received');
+    console.log(params);
+    const query = `SELECT ("email", "password") FROM users WHERE "email"='${params.email}'`;
+    const user = await executeQuery(query);
+    console.log(user);
+    return user;
+}
+
+const initialUsers = async(array) => {
+    for (a in array ){
+        const query = `
+        INSERT INTO "users"(email, password, firstname, lastname, birthbay, phone) VALUES ('${a.email}', ${a.password}, ${a.firstname})`
+    }
 }
 
 export {createUsersTable, addUserToDatabase, loginData};

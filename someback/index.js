@@ -33,7 +33,8 @@ serv.use(uRouter);
 // })
 
 serv.post('/admin', (req, res) => {
-    console.log('received!');
+    console.log('backend admin received!');
+    // console.log(req.body);
     if(req.body.username !== process.env.ADMIN_USERNAME || req.body.password !== process.env.ADMIN_PASSWORD) {
         res.status(401).send("Wrong credentials")
     } else {

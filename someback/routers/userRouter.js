@@ -28,11 +28,11 @@ router.post('/register', (req, res) => {
         
         argon.hash(pWord).then(result => {
             // TODO create users into MongoDB instead
-            let users = JSON.parse(fs.readFileSync('testusers.json'));
+            // let users = JSON.parse(fs.readFileSync('testusers.json'));
             // console.log(users);
-            const user = new User({ email: email, password: result});
+            const user ={ email: email, password: result};
             console.log(user);
-            users.push(user);
+            // users.push(user);
             addUserToDatabase(user);
             // user.save().then(console.log('Success!'));
             // fs.writeFileSync('testusers.json', JSON.stringify(users, 4));
@@ -49,16 +49,18 @@ router.post('/login', (req, res) => {
         res.status(400).send("Some info missing!");
     } else {
         console.log('Received!');
-        console.log(req.body);
-        const users = JSON.parse(fs.readFileSync('testusers.json'));
+        // console.log(req.body);
+        // const users = JSON.parse(fs.readFileSync('testusers.json'));
         //TODO get users from MongoDB instead
-        const user = loginData(req.body)
+        const user = loginData(req.body);
+        console.log(user);
         let pw = req.body.password;
         let hash = user.password;
         argon.verify(hash, pw).then(result => {
             const token = jwt.sign({username: user.email}, secret, options)
             result ? res.status(200).send(`Bearer ${token}`) : res.status(401).send();
         })
+        
     }
 })
 
