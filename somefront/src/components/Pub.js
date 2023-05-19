@@ -1,7 +1,8 @@
+import './Pub.css';
 
 const Pub = (props) => {
     return (
-        <div>
+        <div className="publication">
             <h3>{props.posterid}</h3>
             <p>{props.date}</p>
             <p>{props.content}</p>

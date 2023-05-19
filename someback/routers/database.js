@@ -56,18 +56,24 @@ const addUserToDatabase = async (params) => {
 
 const loginData = async (params) => {
     console.log('login received');
-    console.log(params);
-    const query = `SELECT ("email", "password") FROM users WHERE "email"='${params.email}'`;
-    const user = await executeQuery(query);
-    console.log(user);
-    return user;
+    // console.log(params);
+    const query = `SELECT * FROM users WHERE "email"='${params.email}'`;
+    let result = await executeQuery(query);
+
+    // executeQuery(query).then(result => {
+    //     console.log(JSON.stringify(result.rows));
+    //     return JSON.stringify(result.rows);
+    // })
+    return JSON.stringify(result.rows)
 }
 
-const initialUsers = async(array) => {
-    for (a in array ){
-        const query = `
-        INSERT INTO "users"(email, password, firstname, lastname, birthbay, phone) VALUES ('${a.email}', ${a.password}, ${a.firstname})`
-    }
+const initialUsers = async (a) => {
+    console.log(a);
+    const query = `
+        INSERT INTO "users"(email, password, firstname, lastname, birthday, phone) VALUES ('${a.email}', '${a.password}', '${a.firstname}', '${a.lastname}', '${a.birthday}', '${a.phone}')`;
+    await executeQuery(query);
+    console.log(`User ${a.email} added!`);
+
 }
 
-export {createUsersTable, addUserToDatabase, loginData};
+export {createUsersTable, addUserToDatabase, loginData, initialUsers};

@@ -1,6 +1,7 @@
 
 import LoginForm from "./LoginForm";
 import LoggedInForm from "./LoggedInForm";
+import './Header.css'
 const Header = (props) => {
 
     return (

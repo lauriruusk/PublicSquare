@@ -19,6 +19,14 @@ router.use((req, res, next) => {
     next();
 })
 
+router.post('/initial', (req, res) => {
+    let users = JSON.parse(fs.readFileSync('testusers.json'));
+
+    for (user in users) {
+        
+    }
+}) 
+
 router.post('/register', (req, res) => {
     if(!req.body.email || !req.body.password) {
         res.status(400).send('Some info missing!');
@@ -44,7 +52,7 @@ router.post('/register', (req, res) => {
 
 })
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     if(!req.body.email || !req.body.password) {
         res.status(400).send("Some info missing!");
     } else {
@@ -52,14 +60,20 @@ router.post('/login', (req, res) => {
         // console.log(req.body);
         // const users = JSON.parse(fs.readFileSync('testusers.json'));
         //TODO get users from MongoDB instead
-        const user = loginData(req.body);
-        console.log(user);
-        let pw = req.body.password;
-        let hash = user.password;
+        const userRaw = await loginData(req.body);
+        const user = JSON.parse(userRaw);
+            console.log(user[0].password);
+            let pw = req.body.password;
+        let hash = user[0].password;
         argon.verify(hash, pw).then(result => {
             const token = jwt.sign({username: user.email}, secret, options)
             result ? res.status(200).send(`Bearer ${token}`) : res.status(401).send();
         })
+        
+            
+        
+        // console.log(user);
+        
         
     }
 })

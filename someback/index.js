@@ -1,8 +1,8 @@
 import express from 'express';
 import fs from 'fs';
 import uRouter from './routers/userRouter.js';
-// import argon from 'argon2';
-import  {createUsersTable, addUserToDatabase}  from './routers/database.js'
+import argon from 'argon2';
+import  {createUsersTable, addUserToDatabase, initialUsers}  from './routers/database.js'
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
@@ -31,6 +31,20 @@ serv.use(uRouter);
 //     }
     
 // })
+
+const addInitialUsers = async () => {
+    let users = JSON.parse(fs.readFileSync('testusers.json'));
+    // console.log(users);
+    await users.map(u => {
+        argon.hash(u.password).then(result => {
+            u.password = result;
+            initialUsers(u)
+        })
+    })
+
+}
+
+addInitialUsers();
 
 serv.post('/admin', (req, res) => {
     console.log('backend admin received!');

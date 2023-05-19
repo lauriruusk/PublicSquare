@@ -1,9 +1,10 @@
+import './Footer.css'
 
 const Footer = () => {
     return (
-        <>
+        <footer>
             <p>Footer placeholder</p>
-        </>
+        </footer>
     )
 }
 
