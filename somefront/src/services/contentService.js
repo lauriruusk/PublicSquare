@@ -13,4 +13,9 @@ const getFiltered = ({fltr}) => {
     return request.then(response => response.data);
 }
 
+const addPub = async (props) => {
+    const request = axios.post(url+'/addpub');
+    return request.then(response => response.data);
+}
+
 export default {getAll, getFiltered};

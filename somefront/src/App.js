@@ -29,7 +29,7 @@ const App = () => {
       window.localStorage.setItem('loggeduser', JSON.stringify(kaytt));
       setLogin(true);
     } catch (e) {
-      console.log(e.message);
+      console.log(e);
     }
 
     
@@ -45,7 +45,7 @@ const App = () => {
       window.localStorage.setItem('loggeduser', JSON.stringify(kytt));
 
     } catch (e) {
-      console.log(e.message);
+      console.log(e);
     }
   }
 
