@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import User from '../models/user.js';
 import 'dotenv/config';
 
-const uri = process.env.MONGO_URI;
+const uri = process.env.MON'GO_URI;
 
 mongoose.connect(uri)
 

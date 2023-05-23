@@ -20,8 +20,8 @@ const App = () => {
         username: email,
         token: '',
       };
-      if(email === 'adname') {
-        kaytt.token = await logAdmin({username: email, password: password});
+      if(email === 'admin') {
+        kaytt.token = await logAdmin({email: email, password: password});
       } else {
         kaytt.token = await logUser({email: email, password: password});
       }

@@ -12,7 +12,7 @@ const options = {expiresIn: '15m'};
 serv.use(express.json());
 
 serv.use(uRouter);
-// createUsersTable();
+createUsersTable();
 
 // serv.use((req, res, next) => {
 //     res.header({
@@ -33,7 +33,7 @@ serv.use(uRouter);
 // })
 
 serv.post('/admin', (req, res) => {
-    console.log('received!');
+    console.log('admin received!');
     if(req.body.username !== process.env.ADMIN_USERNAME || req.body.password !== process.env.ADMIN_PASSWORD) {
         res.status(401).send("Wrong credentials")
     } else {
