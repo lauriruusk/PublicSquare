@@ -25,7 +25,7 @@ const App = () => {
       } else {
         kaytt.token = await logUser({email: email, password: password});
       }
-      
+      console.log('token saatu')
       window.localStorage.setItem('loggeduser', JSON.stringify(kaytt));
       setLogin(true);
     } catch (e) {

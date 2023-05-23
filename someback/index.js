@@ -12,15 +12,15 @@ const options = {expiresIn: '15m'};
 serv.use(express.json());
 
 serv.use(uRouter);
-createUsersTable();
+// createUsersTable();
 
-// serv.use((req, res, next) => {
-//     res.header({
-//         'Access-Control-Allow-Origin': '*',
-//         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-//         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'});
-//     next();
-// })
+serv.use((req, res, next) => {
+    res.header({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'});
+    next();
+})
 
 // serv.get('/', (req, res) => {
 //     try{

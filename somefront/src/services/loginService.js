@@ -9,7 +9,13 @@ const logUser = async (credentials) => {
 const logAdmin = async (credentials) => {
     console.log('admin attempt received!');
     const request = await axios.post((url+'/admin'), credentials);
-    return request.data.token;
+    console.log('axios ohi')
+    try {
+        return request.data.token;
+
+    }catch (e){
+        console.log(e.message)
+    }
 }
 
 const regUser = async (credentials) => {

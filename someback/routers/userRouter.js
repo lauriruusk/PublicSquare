@@ -2,7 +2,7 @@ import express from 'express';
 import argon from 'argon2';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
-import User from '../models/user.js';
+// import User from '../models/user.js';
 // import addUserToDatabase from './databaseRouter.js';
 import { addUserToDatabase, loginData } from './database.js';
 import 'dotenv/config';
