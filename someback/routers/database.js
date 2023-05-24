@@ -59,7 +59,6 @@ const createUsersTable = async () => {
 }
 
 const addUserToDatabase = async (params) => {
-<<<<<<< HEAD
     const query = `
         INSERT INTO users ("email", "password") VALUES ('${params.email}', '${params.password}') `
     
@@ -72,25 +71,6 @@ const addUserToDatabase = async (params) => {
         END`
     
         await executeQuery(query2);
-=======
-  /*  const query = `
-        SELECT * FROM users where email=${params.email} `
-    
-        await executeQuery(query).then(result => {
-            if (result.length <=0) {
-                const query2 = `INSERT INTO users (email, password) VALUES ('${params.email}', '${params.password}')`
-                executeQuery(query2);
-            }
-        })
-*/
-    const newQuery = `INSERT INTO users (email, password)
-                        SELECT ${params.email}, ${params.password}
-                        WHERE
-                            NOT EXISTS (
-                                SELECT email FROM users WHERE email = ${params.email}
-                            );`
-        await executeQuery(newQuery)
->>>>>>> 534f9f84daf2919321d87c9d1b72b3a5051417f5
         console.log('User added!');
 }
 
@@ -107,7 +87,6 @@ const loginData = async (params) => {
     return JSON.stringify(result.rows)
 }
 
-<<<<<<< HEAD
 const initialUsers = async (a) => {
     console.log(a);
     const query = `
@@ -118,46 +97,3 @@ const initialUsers = async (a) => {
 }
 
 export {createUsersTable, addUserToDatabase, loginData, initialUsers};
-=======
-const getAllPublications = async () => {
-    const query = `SELECT * FROM publications`
-    const all = executeQuery(query);
-    return JSON.stringify(all);
-}
-
-const getFilteredPublications = async ({flt}) => {
-    const query = `SELECT * FROM publications
-                        WHERE content CONTAINS '${flt}';`
-}
-
-const addPublication = async (params) => {
-    const query = `
-            INSERT INTO publications (senderid, content, date)
-                VALUES (${params.senderid}, ${params.content}, ${params.date}) `
-}
-
-const updateUser = async (params) => {
-    const query = `
-            UPDATE users
-            SET email = ${params.email}
-            SET firstname=${params.firstname}
-            SET lastname=${params.lastname}
-            SET phone=${params.phone}
-            SET birthday=${params.birthday}
-            WHERE id=${params.id};`
-}
-
-const changePassword = async (params) => {
-    const query = `
-            UPDATE users
-                SET password=${params.password}
-            WHERE id=${params.id}`
-}
-
-const deleteUser = async(params) => {
-    const query = `DELETE FROM USERS WHERE id=${params.id} `
-}
-
-export {createUsersTable, addUserToDatabase, loginData, addPublication, updateUser, deleteUser,
-        getAllPublications, getFilteredPublications};
->>>>>>> 534f9f84daf2919321d87c9d1b72b3a5051417f5

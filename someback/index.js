@@ -47,12 +47,7 @@ const addInitialUsers = async () => {
 // addInitialUsers();
 
 serv.post('/admin', (req, res) => {
-<<<<<<< HEAD
-    console.log('backend admin received!');
-    // console.log(req.body);
-=======
     console.log('admin received!');
->>>>>>> 534f9f84daf2919321d87c9d1b72b3a5051417f5
     if(req.body.username !== process.env.ADMIN_USERNAME || req.body.password !== process.env.ADMIN_PASSWORD) {
         res.status(401).send("Wrong credentials")
     } else {

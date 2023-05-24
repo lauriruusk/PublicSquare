@@ -40,12 +40,7 @@ router.post('/register', (req, res) => {
             // console.log(users);
             const user ={ email: email, password: result};
             console.log(user);
-<<<<<<< HEAD
             // users.push(user);
-=======
-            users.push(user);
-            // adds user into postgreSql database
->>>>>>> 534f9f84daf2919321d87c9d1b72b3a5051417f5
             addUserToDatabase(user);
             // user.save().then(console.log('Success!'));
             // fs.writeFileSync('testusers.json', JSON.stringify(users, 4));
