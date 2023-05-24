@@ -50,7 +50,15 @@ const addUserToDatabase = async (params) => {
     const query = `
         INSERT INTO users ("email", "password") VALUES ('${params.email}', '${params.password}') `
     
-        await executeQuery(query);
+    const query2 = `
+        BEGIN
+            IF NOT EXISTS (SELECT * FROM users WHERE email='${params.email}')
+            BEGIN
+            INSERT INTO users ("email", "password") VALUES ('${params.email}', '${params.password}')
+            END
+        END`
+    
+        await executeQuery(query2);
         console.log('User added!');
 }
 

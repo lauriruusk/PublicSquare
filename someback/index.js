@@ -44,7 +44,7 @@ const addInitialUsers = async () => {
 
 }
 
-addInitialUsers();
+// addInitialUsers();
 
 serv.post('/admin', (req, res) => {
     console.log('backend admin received!');
