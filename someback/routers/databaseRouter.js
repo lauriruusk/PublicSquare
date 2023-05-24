@@ -5,7 +5,7 @@ import 'dotenv/config';
 
 const uri = process.env.MONGO_URI;
 
-mongoose.connect(uri)
+// mongoose.connect(uri)
 
 const addUserToDatabase = (param) => {
     try{

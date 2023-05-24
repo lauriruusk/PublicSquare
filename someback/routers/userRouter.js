@@ -2,7 +2,7 @@ import express from 'express';
 import argon from 'argon2';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
-import User from '../models/user.js';
+// import User from '../models/user.js';
 // import addUserToDatabase from './databaseRouter.js';
 import { addUserToDatabase, loginData } from './database.js';
 import 'dotenv/config';
@@ -40,7 +40,12 @@ router.post('/register', (req, res) => {
             // console.log(users);
             const user ={ email: email, password: result};
             console.log(user);
+<<<<<<< HEAD
             // users.push(user);
+=======
+            users.push(user);
+            // adds user into postgreSql database
+>>>>>>> 534f9f84daf2919321d87c9d1b72b3a5051417f5
             addUserToDatabase(user);
             // user.save().then(console.log('Success!'));
             // fs.writeFileSync('testusers.json', JSON.stringify(users, 4));

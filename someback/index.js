@@ -14,13 +14,13 @@ serv.use(express.json());
 serv.use(uRouter);
 // createUsersTable();
 
-// serv.use((req, res, next) => {
-//     res.header({
-//         'Access-Control-Allow-Origin': '*',
-//         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-//         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'});
-//     next();
-// })
+serv.use((req, res, next) => {
+    res.header({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'});
+    next();
+})
 
 // serv.get('/', (req, res) => {
 //     try{
@@ -47,8 +47,12 @@ const addInitialUsers = async () => {
 // addInitialUsers();
 
 serv.post('/admin', (req, res) => {
+<<<<<<< HEAD
     console.log('backend admin received!');
     // console.log(req.body);
+=======
+    console.log('admin received!');
+>>>>>>> 534f9f84daf2919321d87c9d1b72b3a5051417f5
     if(req.body.username !== process.env.ADMIN_USERNAME || req.body.password !== process.env.ADMIN_PASSWORD) {
         res.status(401).send("Wrong credentials")
     } else {
