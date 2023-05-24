@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = 'http://localhost:5433';
+const url = 'http://localhost:3001';
 
 const logUser = async (credentials) => {
     const request = await axios.post((url+'/login'), credentials);
@@ -15,10 +15,15 @@ const logAdmin = async (credentials) => {
 const regUser = async (credentials) => {
     console.log('received!');
     const request = await axios.post((url+'/register'), credentials).catch(e => {
-        console.log(e.message)
+        window.alert(e.response.data)
     });
     try {
-        return request.data.token;
+        if(request.data){
+            return request.data.token;
+        } else {
+            return request;
+        }
+        
     } catch (e) {
         throw e;
     }

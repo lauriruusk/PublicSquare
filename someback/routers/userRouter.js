@@ -19,35 +19,26 @@ router.use((req, res, next) => {
     next();
 })
 
-router.post('/initial', (req, res) => {
-    let users = JSON.parse(fs.readFileSync('testusers.json'));
-
-    for (user in users) {
-        
-    }
-}) 
-
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
     if(!req.body.email || !req.body.password) {
         res.status(400).send('Some info missing!');
     } else {
         let email = req.body.email;
         let pWord = req.body.password;
-        
+        let rows = 0;
         argon.hash(pWord).then(result => {
-            // TODO create users into MongoDB instead
-            // let users = JSON.parse(fs.readFileSync('testusers.json'));
-            // console.log(users);
             const user ={ email: email, password: result};
-            console.log(user);
-            // users.push(user);
-            addUserToDatabase(user);
-            // user.save().then(console.log('Success!'));
-            // fs.writeFileSync('testusers.json', JSON.stringify(users, 4));
-            // console.log(users);
+            addUserToDatabase(user).then(received => {
+                rows = received.rowCount;
+            })
         });
-        const token = jwt.sign({user: email}, secret, options);
-        res.status(200).send(`Bearer ${token}`);
+        
+        if(rows === 0) {
+            res.status(401).send("Email already in use!")
+        } else {
+            const token = jwt.sign({user: email}, secret, options);
+            res.status(200).send(`Bearer ${token}`);
+        }    
     }
 
 })

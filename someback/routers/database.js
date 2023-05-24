@@ -59,31 +59,25 @@ const createUsersTable = async () => {
 }
 
 const addUserToDatabase = async (params) => {
-    const query = `
-        INSERT INTO users ("email", "password") VALUES ('${params.email}', '${params.password}') `
-    
     const query2 = `
-        BEGIN
-            IF NOT EXISTS (SELECT * FROM users WHERE email='${params.email}')
-            BEGIN
-            INSERT INTO users ("email", "password") VALUES ('${params.email}', '${params.password}')
-            END
-        END`
+        INSERT INTO users (email, password)
+            SELECT '${params.email}', '${params.password}'
+        WHERE
+            NOT EXISTS(SELECT email, password FROM users WHERE email='${params.email}');`
     
-        await executeQuery(query2);
-        console.log('User added!');
+        const result = await executeQuery(query2);
+        console.log(result.rowCount);
+        // console.log('User added!');
+        if(result === 0) {
+            console.log("User already exists");
+        }
+        return result;
 }
 
 const loginData = async (params) => {
     console.log('login received');
-    // console.log(params);
     const query = `SELECT * FROM users WHERE "email"='${params.email}'`;
     let result = await executeQuery(query);
-
-    // executeQuery(query).then(result => {
-    //     console.log(JSON.stringify(result.rows));
-    //     return JSON.stringify(result.rows);
-    // })
     return JSON.stringify(result.rows)
 }
 
@@ -94,6 +88,45 @@ const initialUsers = async (a) => {
     await executeQuery(query);
     console.log(`User ${a.email} added!`);
 
+}
+
+const getAllPublications = async () => {
+    const query = `SELECT * FROM publications`
+    const all = executeQuery(query);
+    return JSON.stringify(all);
+}
+
+const getFilteredPublications = async ({flt}) => {
+    const query = `SELECT * FROM publications
+                        WHERE content CONTAINS '${flt}';`
+}
+
+const addPublication = async (params) => {
+    const query = `
+            INSERT INTO publications (senderid, content, date)
+                VALUES (${params.senderid}, ${params.content}, ${params.date}) `
+}
+
+const updateUser = async (params) => {
+    const query = `
+            UPDATE users
+            SET email = ${params.email}
+            SET firstname=${params.firstname}
+            SET lastname=${params.lastname}
+            SET phone=${params.phone}
+            SET birthday=${params.birthday}
+            WHERE id=${params.id};`
+}
+
+const changePassword = async (params) => {
+    const query = `
+            UPDATE users
+                SET password=${params.password}
+            WHERE id=${params.id}`
+}
+
+const deleteUser = async(params) => {
+    const query = `DELETE FROM USERS WHERE id=${params.id} `
 }
 
 export {createUsersTable, addUserToDatabase, loginData, initialUsers};
