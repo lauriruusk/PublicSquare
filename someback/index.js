@@ -12,7 +12,6 @@ const options = {expiresIn: '15m'};
 serv.use(express.json());
 
 serv.use(uRouter);
-// createUsersTable();
 
 serv.use((req, res, next) => {
     res.header({
@@ -21,16 +20,6 @@ serv.use((req, res, next) => {
         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'});
     next();
 })
-
-// serv.get('/', (req, res) => {
-//     try{
-//         const all = JSON.parse(fs.readFileSync('./testpubs.json'));
-//     res.send(all);
-//     } catch (e) {
-//         res.send(e.message);
-//     }
-    
-// })
 
 const addInitialUsers = async () => {
     let users = JSON.parse(fs.readFileSync('testusers.json'));
@@ -41,13 +30,12 @@ const addInitialUsers = async () => {
             initialUsers(u)
         })
     })
-
 }
 
 // addInitialUsers();
 
 serv.post('/admin', (req, res) => {
-    console.log('admin received!');
+    console.log('admin attempt received!');
     if(req.body.username !== process.env.ADMIN_USERNAME || req.body.password !== process.env.ADMIN_PASSWORD) {
         res.status(401).send("Wrong credentials")
     } else {

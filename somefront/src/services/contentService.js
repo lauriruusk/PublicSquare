@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios';
 
-const url = 'http://localhost:5432';
+const url = 'http://localhost:5433';
 
 const getAll = () => {
     const request = axios.get(url)
@@ -18,4 +18,9 @@ const addPub = async (props) => {
     return request.then(response => response.data);
 }
 
-export default {getAll, getFiltered};
+const getUser = async (props) => {
+    const request = await axios.post(url+'/getuser', props);
+    return request.then(response => response.data);
+}
+
+export default {getAll, getFiltered, getUser, addPub};

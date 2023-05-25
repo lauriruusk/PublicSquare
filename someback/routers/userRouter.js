@@ -2,8 +2,6 @@ import express from 'express';
 import argon from 'argon2';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
-// import User from '../models/user.js';
-// import addUserToDatabase from './databaseRouter.js';
 import { addUserToDatabase, loginData } from './database.js';
 import 'dotenv/config';
 const router = express.Router();
@@ -47,25 +45,15 @@ router.post('/login', async (req, res) => {
     if(!req.body.email || !req.body.password) {
         res.status(400).send("Some info missing!");
     } else {
-        console.log('Received!');
-        // console.log(req.body);
-        // const users = JSON.parse(fs.readFileSync('testusers.json'));
-        //TODO get users from MongoDB instead
+        console.log('Login received!');
         const userRaw = await loginData(req.body);
         const user = JSON.parse(userRaw);
-            console.log(user[0].password);
-            let pw = req.body.password;
+        let pw = req.body.password;
         let hash = user[0].password;
         argon.verify(hash, pw).then(result => {
             const token = jwt.sign({username: user.email}, secret, options)
             result ? res.status(200).send(`Bearer ${token}`) : res.status(401).send();
-        })
-        
-            
-        
-        // console.log(user);
-        
-        
+        }) 
     }
 })
 

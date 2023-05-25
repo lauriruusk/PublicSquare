@@ -7,7 +7,7 @@ const Header = (props) => {
     return (
         <>
             <header>
-                Header placeholder
+                <p>Log in to continue</p>
                 {props.login ? <LoggedInForm /> : <LoginForm handler={props.handler} reghandler={props.rhandle} />}
             </header>
         </>

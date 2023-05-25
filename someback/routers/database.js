@@ -67,7 +67,6 @@ const addUserToDatabase = async (params) => {
     
         const result = await executeQuery(query2);
         console.log(result.rowCount);
-        // console.log('User added!');
         if(result === 0) {
             console.log("User already exists");
         }

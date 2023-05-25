@@ -1,5 +1,6 @@
 import axios from 'axios';
-const url = 'http://localhost:3001';
+// import 'dotenv/config';
+const url = `http://localhost:5433`;
 
 const logUser = async (credentials) => {
     const request = await axios.post((url+'/login'), credentials);

@@ -5,10 +5,10 @@ Tämä on yksinkertainen lista tehtävistä asioista. Valmiit ominaisuudet merki
 ## Frontend
 
 - Karkea layout DONE
-- tyyli
+- tyyli DONE
 - komponentit DONE
-- rekisteröityminen
-- kirjautuminen
+- rekisteröityminen DONE
+- kirjautuminen DONE
 - julkaisut näkyvät
 - julkaisun saa lisättyä
 - profiilin katsominen
@@ -20,7 +20,10 @@ Tämä on yksinkertainen lista tehtävistä asioista. Valmiit ominaisuudet merki
 
 - palvelin pyörii DONE
 - julkaisujen lähetys
-- yhteys tietokantaan
-- käyttäjän lisäys tietokantaan
+- yhteys tietokantaan DONE
+- käyttäjän lisäys tietokantaan DONE
 - julkaisun lisäys tietokantaan
 
+## Muuta
+
+- nimenvaihdos?

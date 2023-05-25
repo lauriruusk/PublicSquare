@@ -29,10 +29,8 @@ const App = () => {
       window.localStorage.setItem('loggeduser', JSON.stringify(kaytt));
       setLogin(true);
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
-
-    
   }
 
   const handleRegister = async (email, password) => {
@@ -49,11 +47,10 @@ const App = () => {
     }
   }
 
-
   return (
     <div>
       <Header login={login} handler={handleLogin} rhandle={handleRegister} />
-      {login && <PublicSquare content={pubs} />}
+      <PublicSquare content={pubs} />
       <Footer />
     </div>
   )
